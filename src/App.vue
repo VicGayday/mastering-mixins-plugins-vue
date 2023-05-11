@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="card">
-      <h2 v-color:[type]="myColor">About directives in vue</h2>
+      <h2 v-color:[type]="color">About directives in vue</h2>
       <div class="form-control">
         <label for="input">Active by default</label>
         <input v-focus type="text" id="input">
@@ -30,18 +30,17 @@ export default defineComponent({
 },
   setup() {
    const alert = ref(false);
-   const myColor = ref('darkred');
+   const color = ref('darkred');
    const type = ref('color');
    const toggleAlert = () => {
     alert.value = !alert.value
    }
    const changeColor = () => {
-    myColor.value = 'blue'
+    color.value = 'blue'
    }
 
    const changeType = () => {
     type.value = type.value === 'color' ? 'backgroundColor' : 'color'
-    console.log(type.value);
    }
 
    return {
