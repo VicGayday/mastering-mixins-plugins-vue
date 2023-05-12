@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="card">
-      <h2 v-color:[type]="color">About directives in vue</h2>
+    <div class="card" v-if="show">
+      <h2 v-color:[type].blink.hover="color">About directives in vue</h2>
       <div class="form-control">
         <label for="input">Active by default</label>
         <input v-focus type="text" id="input">
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import AppAlert from '@/components/AppAlert.vue';
 import AppBlock from '@/components/AppBlock.vue';
 import focusDirective from './directives/focus.directive';
@@ -32,6 +32,8 @@ export default defineComponent({
    const alert = ref(false);
    const color = ref('darkred');
    const type = ref('color');
+   const show = ref(true);
+
    const toggleAlert = () => {
     alert.value = !alert.value
    }
@@ -46,10 +48,11 @@ export default defineComponent({
    return {
     alert,
     toggleAlert,
-    myColor,
+    color,
     type,
     changeColor,
-    changeType
+    changeType,
+    show,
    }
   }
 })
