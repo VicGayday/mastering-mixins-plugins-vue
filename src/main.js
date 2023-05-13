@@ -1,8 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './theme.css'
+import translatePlugin from './plugins/translatePlugin'
 
-createApp(App)
+
+const app = createApp(App)
+
+app.use(translatePlugin, {test: 1})
 // .directive(
 //   'focus', {
 //     mounted(el) {

@@ -1,60 +1,40 @@
 <template>
-  <div class="container">
-    <div class="card" v-if="show">
-      <h2 v-color:[type].blink.hover="color">About directives in vue</h2>
-      <div class="form-control">
-        <label for="input">Active by default</label>
-        <input v-focus type="text" id="input">
-      </div>
-      <button class="btn" @click="changeColor">Change color</button>
-      <button class="btn" @click="changeType">Change type</button>
-    </div>
+  <div class="card">
+    <h2>how plugins works in Vue?</h2>
+    <button class="btn" @click="$alert('It works!')">Alert</button>
+    <button class="btn primary" @click="openModal">Show modal</button>
+    <teleport to="body">
+      <app-modal
+        v-if="modalVisibility"
+        @close="closeModal"
+        >
+        </app-modal>
+      </teleport>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue';
-import AppAlert from '@/components/AppAlert.vue';
-import AppBlock from '@/components/AppBlock.vue';
-import focusDirective from './directives/focus.directive';
-import colorDirective from './directives/color.directive.js';
+import { defineComponent, ref } from 'vue';
+import AppModal from "@/components/AppModal.vue";
 export default defineComponent({
   name: "App",
-  components: {
-    AppAlert,
-    AppBlock,
-  },
-  directives: {
-  focus: focusDirective,
-  color: colorDirective,
-},
+  components: { AppModal },
   setup() {
-   const alert = ref(false);
-   const color = ref('darkred');
-   const type = ref('color');
-   const show = ref(true);
+    const modalVisibility = ref(false);
 
-   const toggleAlert = () => {
-    alert.value = !alert.value
-   }
-   const changeColor = () => {
-    color.value = 'blue'
-   }
+    function openModal() {
+      modalVisibility.value = true;
+    }
 
-   const changeType = () => {
-    type.value = type.value === 'color' ? 'backgroundColor' : 'color'
-   }
+    function closeModal() {
+      modalVisibility.value = false;
+    }
 
-   return {
-    alert,
-    toggleAlert,
-    color,
-    type,
-    changeColor,
-    changeType,
-    show,
-   }
+    return {
+      modalVisibility,
+      openModal,
+      closeModal,
+    }
   }
 })
 </script>
-
